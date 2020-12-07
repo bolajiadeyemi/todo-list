@@ -1,8 +1,23 @@
 import React, { useEffect } from 'react';
 import { renderIntoDocument } from 'react-dom/test-utils';
 
-function TaskList({ taskList }){
-    console.log(taskList)
+function TaskList({ taskList , onDeleteTask, onTaskCompleted }){
+    //console.log(taskList)
+
+    const taskTitle = (text, completed) =>{
+        // console.log('Test to change')
+        // let newText = completed === true ? '<del>'+text+'</del>' : text ;
+        // return newText;
+    }
+
+    const onDeleteClicked = (index)=>{
+        onDeleteTask (index)
+    }
+
+    const onTaskCompletedClicked = (index)=>{
+        onTaskCompleted(index)
+    }
+
     return(
         
             <div style={{
@@ -17,7 +32,7 @@ function TaskList({ taskList }){
                     width: '100%',
                  }}
                 >
-                   {taskList.map(({ text, completed },index) => 
+                   {taskList.map(({ text, completed }, index) => 
                    <li key={index} style={{
                        listStyle: 'none',
                        display: 'flex',
@@ -29,17 +44,21 @@ function TaskList({ taskList }){
                         <div style={{
                           
                         }}> 
-                            <input type="checkbox" checked={completed}/>
+                            <input type="checkbox" checked={completed} onChange={()=>onTaskCompletedClicked(index,completed)} />
                             <span
                             style={{
                                 display: 'inline-block',
                                 marginLeft: '20px'
                         
-                            }}
-                        >{text}</span>
+                            }}>
+                                {completed === true ? 
+                                    <del>{text}</del> :
+                                    text   
+                                }    
+                            </span>
                         </div>
                         <div>
-                            <p><a href='#'>Delete</a></p>
+                            <p><a href='#' onClick={()=>onDeleteClicked(index)}>Delete</a></p>
                         </div>
                     </li>)}
                 </ul>

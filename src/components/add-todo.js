@@ -6,9 +6,10 @@ function AddTodo({ onAddToTaskList }) {
     const inputEl = useRef(null);
     const onButtonClick = () => {
         // `current` points to the mounted text input element
-        onAddToTaskList(inputEl.current.value) // newtask
+        if(inputEl.current.value !== '') onAddToTaskList(inputEl.current.value) // newtask
         inputEl.current.value ='';
       };
+
     return (
         <div>
             <div style={{
